@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Keyword Research Tool - Get keyword suggestions, search trends, and content ideas. Perfect for SEO, content marketing, and PPC campaigns.">
+    <meta name="keywords" content="keyword research, free keyword tool, SEO keywords, keyword suggestions, keyword analysis">
+    <meta name="author" content="Your Name">
+    <meta property="og:title" content="Free Keyword Research Tool">
+    <meta property="og:description" content="Get keyword suggestions and search trends for free. Perfect for SEO and content marketing.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com">
+    <title>Free Keyword Tool - Get Keyword Suggestions For SEO & Content</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20'>🔍</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <h1>Free Keyword Tool</h1>
+        <div class="seo-content">
+            <p class="tool-description">
+                Discover powerful keywords for your content and SEO strategy. Our free keyword research tool helps you find relevant search terms, analyze trends, and optimize your content for better visibility.
+            </p>
+        </div>
+        <div class="search-container">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="keywordInput" placeholder="Enter your keyword...">
+                <button onclick="searchKeywords()">Search</button>
+            </div>
+        </div>
+        <div class="results-container">
+            <div class="actions-container">
+                <button id="copyButton" class="action-btn" disabled>
+                    <span class="btn-icon">📋</span> Copy All
+                </button>
+                <button id="downloadButton" class="action-btn" disabled>
+                    <span class="btn-icon">📥</span> Download CSV
+                </button>
+            </div>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Keyword</th>
+                        <th width="50" class="checkbox-column">
+                            <input type="checkbox" id="selectAll" title="Select All">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+
+        </div>
+        <footer class="seo-footer">
+            <h2>About Our Free Keyword Tool</h2>
+            <p>Get instant access to valuable keyword suggestions powered by Google's data. Perfect for content creators, marketers, and SEO professionals looking to improve their search visibility.</p>
+            <div class="features">
+                <ul>
+                    <li>✓ Real-time keyword suggestions</li>
+                    <li>✓ Easy CSV export</li>
+                    <li>✓ Quick copy functionality</li>
+                    <li>✓ No registration required</li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
