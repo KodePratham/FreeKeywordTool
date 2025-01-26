@@ -1,70 +1,120 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-mode">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Keyword Research Tool - Get keyword suggestions, search trends, and content ideas. Perfect for SEO, content marketing, and PPC campaigns.">
-    <meta name="keywords" content="keyword research, free keyword tool, SEO keywords, keyword suggestions, keyword analysis">
-    <meta name="author" content="Your Name">
-    <meta property="og:title" content="Free Keyword Research Tool">
-    <meta property="og:description" content="Get keyword suggestions and search trends for free. Perfect for SEO and content marketing.">
+    <title>NotionPad - Private Note Taking App | Your Notes Stay Local</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+
+    <!--google adesense-->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7463708966895439"
+     crossorigin="anonymous"></script>
+     
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Take private notes with NotionPad - your data never leaves your device. 100% local storage, no account needed, complete privacy. Free Notion-style note taking with focus on data privacy.">
+    <meta name="keywords" content="private note taking, local storage notes, offline notes, private notion alternative, secure notes, privacy focused notes, no account notes, browser notes, private markdown notes">
+    
+    <!-- Google Specific -->
+    <meta name="googlebot" content="index,follow">
+    <meta name="google" content="notranslate">
+    <meta name="google-site-verification" content="o_XkmrvmarV6_MvQiLl3WdWW-GHORWQnt4TqyOEPYKg" />
+    
+    <!-- Social Media Images -->
+    <meta property="og:image" content="https://notionpad.vercel.app/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:image" content="https://notionpad.vercel.app/images/twitter-card.png">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="NotionPad - Private Note Taking | Your Data Stays Local">
+    <meta property="og:description" content="Take truly private notes that never leave your device. No account needed, no cloud storage, just your notes and your browser. Complete privacy with local storage.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com">
-    <title>Free Keyword Tool - Get Keyword Suggestions For SEO & Content</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20'>🔍</text></svg>">
+    <meta property="og:url" content="https://notionpad.vercel.app">
+    <meta property="og:site_name" content="NotionPad">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NotionPad - Notion-Style Note Taking">
+    <meta name="twitter:description" content="Free Notion-style note taking tool. Create and organize notes like Notion with markdown support. Your private alternative to Notion.">
+    
+    <!-- Ensure Google indexing -->
+    <meta name="googlebot" content="index,follow">
+    <meta name="googlebot-news" content="index,follow">
+    
+    <!-- Additional verification methods -->
+    <meta name="google-site-verification" content="o_XkmrvmarV6_MvQiLl3WdWW-GHORWQnt4TqyOEPYKg" />
+    <!-- Add Bing verification if needed -->
+    <!-- <meta name="msvalidate.01" content="YOUR-BING-CODE" /> -->
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Add structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NotionPad",
+      "description": "Private note-taking app with local storage only",
+      "applicationCategory": "Productivity Software",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Private Note Taking",
+        "Local Storage Only",
+        "No Account Required",
+        "No Cloud Storage",
+        "Complete Data Privacy"
+      ]
+    }
+    </script>
+    
+    <!-- Add Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'YOUR-GA-ID');
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Free Keyword Tool</h1>
-        <div class="seo-content">
-            <p class="tool-description">
-                Discover powerful keywords for your content and SEO strategy. Our free keyword research tool helps you find relevant search terms, analyze trends, and optimize your content for better visibility.
-            </p>
+        <h1>Notion Pad</h1>
+        <div class="note-form">
+            <input type="text" id="noteTitle" placeholder="Note Title">
+            <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+            <button id="addNote">Add Note</button>
         </div>
-        <div class="search-container">
-            <div class="search-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="keywordInput" placeholder="Enter your keyword...">
-                <button onclick="searchKeywords()">Search</button>
-            </div>
+        <div id="notesContainer"></div>
+        <div id="local-storage-message">
+            <p><strong>Privacy First:</strong> All notes are stored locally on your device. No accounts. No tracking. No cloud storage.</p>
+            <ul class="privacy-features">
+                <li>✓ 100% Local Storage</li>
+                <li>✓ No Account Required</li>
+                <li>✓ Your Data Never Leaves Your Device</li>
+            </ul>
         </div>
-        <div class="results-container">
-            <div class="actions-container">
-                <button id="copyButton" class="action-btn" disabled>
-                    <span class="btn-icon">📋</span> Copy All
-                </button>
-                <button id="downloadButton" class="action-btn" disabled>
-                    <span class="btn-icon">📥</span> Download CSV
-                </button>
-            </div>
-            <table id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>Keyword</th>
-                        <th width="50" class="checkbox-column">
-                            <input type="checkbox" id="selectAll" title="Select All">
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="resultsBody"></tbody>
-            </table>
-
+        <div class="social-share">
+            <button onclick="shareOnTwitter()" class="share-button twitter" aria-label="Share on Twitter">
+                <i class="fab fa-twitter"></i>
+            </button>
+            <button onclick="shareOnLinkedIn()" class="share-button linkedin" aria-label="Share on LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </button>
         </div>
-        <footer class="seo-footer">
-            <h2>About Our Free Keyword Tool</h2>
-            <p>Get instant access to valuable keyword suggestions powered by Google's data. Perfect for content creators, marketers, and SEO professionals looking to improve their search visibility.</p>
-            <div class="features">
-                <ul>
-                    <li>✓ Real-time keyword suggestions</li>
-                    <li>✓ Easy CSV export</li>
-                    <li>✓ Quick copy functionality</li>
-                    <li>✓ No registration required</li>
-                </ul>
-            </div>
-        </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/social.js"></script>
 </body>
 </html>
