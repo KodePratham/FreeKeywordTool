@@ -305,6 +305,137 @@ button:not(:disabled):hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.copy-success.ai-fallback {
+    background: linear-gradient(45deg, #9c27b0, #673ab7);
+}
+
+/* ...existing code... */
+
+/* Enhanced copy button styles */
+#copyButton.action-btn {
+    background: linear-gradient(45deg, #00c853, #64dd17);
+    background-size: 200% auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+}
+
+#copyButton.action-btn:not(:disabled) {
+    animation: pulse 2s infinite;
+}
+
+#copyButton.action-btn:not(:disabled):hover {
+    background-position: right center;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 200, 83, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#copyButton.action-btn:not(:disabled):active {
+    transform: translateY(0) scale(0.98);
+}
+
+#copyButton .btn-icon {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+#copyButton.action-btn:not(:disabled):hover .btn-icon {
+    transform: scale(1.3) rotate(-5deg);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(0, 200, 83, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+    }
+}
+
+/* Disabled state override for copy button */
+#copyButton.action-btn:disabled {
+    background: linear-gradient(45deg, #757575, #9e9e9e);
+    opacity: 0.5;
+}
+
+/* ...rest of existing code... */
+
+/* Enhanced download button styles */
+#downloadButton.action-btn {
+    background: linear-gradient(45deg, var(--accent-color), #1a73e8);
+    background-size: 200% auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2);
+}
+
+#downloadButton.action-btn:not(:disabled) {
+    animation: blueGlow 2s infinite;
+}
+
+#downloadButton.action-btn:not(:disabled):hover {
+    background-position: right center;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#downloadButton.action-btn:not(:disabled):active {
+    transform: translateY(0) scale(0.98);
+}
+
+#downloadButton .btn-icon {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+#downloadButton.action-btn:not(:disabled):hover .btn-icon {
+    transform: scale(1.3) translateY(2px);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes blueGlow {
+    0% {
+        box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(66, 133, 244, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2);
+    }
+}
+
+/* Update disabled state for both copy and download buttons */
+#copyButton.action-btn:disabled,
+#downloadButton.action-btn:disabled {
+    background: linear-gradient(45deg, #757575, #9e9e9e);
+    opacity: 0.5;
+    transform: none;
+    animation: none;
+}
+
+/* ...rest of existing code... */
+
+.copy-success.ai {
+    background: linear-gradient(45deg, #10a37f, #0e906f);
+}
+
+.ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #10a37f;
+    color: white;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+/* ...rest of existing code... */
+
 @keyframes slideIn {
     from { transform: translateY(100px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
@@ -439,4 +570,15 @@ button:not(:disabled):hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
+}
+
+/* Add AI fallback indicator */
+.ai-generated {
+    display: inline-block;
+    background: linear-gradient(45deg, #9c27b0, #673ab7);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
 }

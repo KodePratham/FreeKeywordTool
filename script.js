@@ -1,7 +1,120 @@
 const RAPID_API_KEY = 'd66f24736bmsh01ae3cb80607b91p178d4djsn20ae13239fbd';
 
+// Keyword generation helper data
+const keywordModifiers = {
+    prefixes: [
+        'how to', 'what is', 'best', 'top', 'cheap', 'free',
+        'professional', 'online', 'easy', 'diy', 'guide to'
+    ],
+    suffixes: [
+        'service', 'tool', 'software', 'guide', 'tutorial', 'tips',
+        'review', 'comparison', 'alternative', 'solution', 'course'
+    ],
+    modifiers: [
+        'best', 'top', 'cheap', 'professional', 'online',
+        'free', 'easy', 'quick', 'simple', 'ultimate'
+    ]
+};
+
+async function generateAIKeywords(keyword) {
+    try {
+        const response = await fetch('https://open-ai21.p.rapidapi.com/getimgurl', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'x-rapidapi-host': 'open-ai21.p.rapidapi.com',
+                'x-rapidapi-key': RAPID_API_KEY
+            },
+            body: new URLSearchParams({
+                prompt: `Generate 30 SEO keyword suggestions related to: ${keyword}. 
+                        Focus on search intent, long-tail keywords, and user queries. 
+                        Return only the keywords, one per line.`
+            })
+        });
+
+        if (!response.ok) throw new Error('AI API request failed');
+        
+        const data = await response.json();
+        
+        // Parse the AI response and extract keywords
+        const keywords = data.answer
+            .split('\n')
+            .map(k => k.trim())
+            .filter(k => k && k.length > 2)
+            .filter(k => !k.startsWith('-') && !k.startsWith('*'));
+
+        return keywords;
+    } catch (error) {
+        console.error('AI Keyword Generation Error:', error);
+        // Fallback to local generation if AI fails
+        return generateLocalSuggestions(keyword);
+    }
+}
+
+function generateLocalSuggestions(keyword) {
+    // Existing local generation logic
+    const suggestions = new Set();
+    const words = keyword.split(' ');
+    
+    // Add original keyword
+    suggestions.add(keyword);
+
+    // Add prefix variations
+    keywordModifiers.prefixes.forEach(prefix => {
+        suggestions.add(`${prefix} ${keyword}`);
+    });
+
+    // Add suffix variations
+    keywordModifiers.suffixes.forEach(suffix => {
+        suggestions.add(`${keyword} ${suffix}`);
+    });
+
+    // Add modifier variations
+    keywordModifiers.modifiers.forEach(modifier => {
+        suggestions.add(`${modifier} ${keyword}`);
+        suggestions.add(`${keyword} ${modifier}`);
+    });
+
+    // Add combinations
+    if (words.length > 1) {
+        words.forEach((word, index) => {
+            const otherWords = [...words];
+            otherWords.splice(index, 1);
+            suggestions.add(otherWords.join(' '));
+            keywordModifiers.modifiers.forEach(modifier => {
+                suggestions.add(`${modifier} ${otherWords.join(' ')}`);
+            });
+        });
+    }
+
+    // Add common questions
+    const questions = [
+        `how to ${keyword}`,
+        `what is ${keyword}`,
+        `why ${keyword}`,
+        `when to ${keyword}`,
+        `where to ${keyword}`,
+        `which ${keyword}`
+    ];
+    questions.forEach(q => suggestions.add(q));
+
+    // Filter and sort results
+    return Array.from(suggestions)
+        .filter(kw => kw.length >= 3 && kw !== keyword)
+        .sort((a, b) => a.length - b.length)
+        .slice(0, 30);
+}
+
 async function fetchKeywordSuggestions(keyword) {
     try {
+        // Try AI generation first
+        const aiSuggestions = await generateAIKeywords(keyword);
+        if (aiSuggestions.length > 0) {
+            showNotification('Using AI-powered suggestions', false, true);
+            return aiSuggestions;
+        }
+
+        // If AI fails, try the original API
         const options = {
             method: 'GET',
             headers: {
@@ -11,26 +124,20 @@ async function fetchKeywordSuggestions(keyword) {
         };
 
         const url = `https://google-keyword-insight1.p.rapidapi.com/globalkey/?keyword=${encodeURIComponent(keyword)}&lang=en`;
-        console.log('Fetching from:', url);
-
         const response = await fetch(url, options);
         const data = await response.json();
-        console.log('Response data:', data);
 
-        if (!response.ok) {
-            throw new Error('API request failed');
-        }
+        if (!response.ok) throw new Error('API request failed');
 
-        // The new API returns an array of keyword data
         if (Array.isArray(data)) {
-            const keywords = data.map(item => item.keyword || item.text || item);
-            return keywords.filter(Boolean); // Remove any undefined or null values
+            return data.map(item => item.keyword || item.text || item)
+                      .filter(Boolean);
         }
 
-        return [];
+        throw new Error('Invalid response format');
     } catch (error) {
-        console.error('Detailed error:', error);
-        throw new Error(`Failed to fetch suggestions: ${error.message}`);
+        console.error('All APIs failed, using local generation:', error);
+        return generateLocalSuggestions(keyword);
     }
 }
 
@@ -168,3 +275,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function showNotification(message, isError = false, isAI = false) {
+    const notification = document.createElement('div');
+    notification.className = 'copy-success';
+    notification.style.backgroundColor = isError ? 'var(--error-color)' : 
+                                       isAI ? '#10a37f' : 'var(--success-color)';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        document.body.removeChild(notification);
+    }, 3000);
+}
